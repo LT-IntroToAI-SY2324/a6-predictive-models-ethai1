@@ -29,14 +29,18 @@ print(f"R squared value is: {r_squared}")
 predict_age = 43
 prediction = model.predict([[predict_age]])
 # Print out the prediction
-print(prediction)
+print(f"A person {predict_age} years old has a blood pressure of {prediction}")
 # Create the model in matplotlib and include the line of best fit
 
 plt.figure(figsize=(6, 4))
 
-plt.scatter(x, y)
+plt.plot(x, coef*x + intercept, c="purple", label="Line of Best Fit")
+
+plt.scatter(x, y, c="red")
+plt.scatter(predict_age, prediction, c="blue")
 plt.xlabel("Age")
 plt.ylabel("Blood Pressure")
 plt.title("Blood Pressure by Age")
 
+plt.legend()
 plt.show()
