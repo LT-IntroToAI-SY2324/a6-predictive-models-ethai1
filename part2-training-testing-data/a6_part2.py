@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 **********CREATE THE MODEL**********
 '''
 
-data = pd.read_csv("data.csv")
+data = pd.read_csv("part1-linear-regression/blood_pressure_data.csv")
 x = data["Age"].values
 y = data["Blood Pressure"].values
 
@@ -22,8 +22,8 @@ xtrain = xtrain.reshape(-1,1)
 model = LinearRegression().fit(xtrain, ytrain)
 
 # Find the coefficient, bias, and r squared values. 
-coefficient = round(float(model.coef_))
-bias = round(float(model.intercept_))
+coefficient = round(float(model.coef_), 2)
+bias = round(float(model.intercept_), 2)
 r_squared = model.score(xtrain, ytrain)
 
 # Each should be a float and rounded to two decimal places. 
@@ -48,14 +48,27 @@ predictions = np.around(predictions, 2)
 # Test the model by looping through all of the values in the xtest dataset
 print("\nTesting Linear Model with Testing Data:")
 
-for num in range(len(xtest)):
-    x_prediction = xtest[num]
-    y_prediction = ytest[num]
+for index in range(len(xtest)):
+    actual_value = ytest[index]
+    prediction = predictions[index]
+    coordinate = xtest[index]
+
+    print("x value:", float(coordinate), "Predicted y value:", prediction, "Actual y value:", actual_value)
     
 '''
 **********CREATE A VISUAL OF THE RESULTS**********
 '''
 
-# plt.figure(6, 4)
+plt.figure(figsize=(6, 4))
 
-# plt.scatter(x, y)
+plt.scatter(xtrain, ytrain, c="blue", label="Training Data")
+plt.scatter(xtest, ytest, c="red", label="Testing Data")
+plt.scatter(xtest, predictions, c="purple", label="Predictions")
+
+plt.xlabel("Age")
+plt.ylabel("Blood Pressure")
+plt.title("Blood Pressure by Age")
+plt.plot(x, coefficient*x + bias, c="r", label="Line of Best Fit")
+
+plt.legend()
+plt.show()
