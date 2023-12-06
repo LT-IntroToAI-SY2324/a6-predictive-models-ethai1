@@ -10,6 +10,7 @@ y = data["Price"].values
 
 #split the data into training and testing data
 xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.2)
+print(xtest)
 
 #create linear regression model
 model = LinearRegression().fit(xtrain, ytrain)
@@ -27,7 +28,17 @@ print(f"Intercept is: {intercept}")
 print(f"R_squared value is: {r_squared}")
 print(f"Model equation is y = {coefficent[0]}x1 + {coefficent[1]}x2 + {intercept}")
 
+# first attempt, not using predict function
+# test1 = coefficent[0] * 89 + coefficent[1] * 10 + intercept
+# test2 = coefficent[0] * 150 + coefficent[1] * 20 + intercept
+# print(f"10 year old car, 89,000 miles: ${test1}")
+# print(f"20 year old car, 150,000 miles: ${test2}")
+
 prediction = model.predict(xtest)
+
+test3 = model.predict([[89, 10]])
+test4 = model.predict([[150, 20]])
+print("Tests 3 and 4", test3, test4)
 
 prediction = np.around(prediction, 2)
 
