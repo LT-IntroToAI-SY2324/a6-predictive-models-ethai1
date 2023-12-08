@@ -30,26 +30,31 @@ model = linear_model.LogisticRegression().fit(xtrain, ytrain)
 print(f"Accuracy: ", + model.score(xtest, ytest))
 
 test = model.predict([[1, 34, 56000]])
-print(f"34 year olf female decided to: {test}")
+if test == 0:
+    test = "not buy"
+else:
+    test = "buy"
+
+print(f"34 year old female decided to {test} the SUV")
 
 # Step 8: Print out the actual ytest values and predicted y values
 # based on the xtest data
+
 predict = model.predict(xtest)
-x = x.reshape(-1, 2)
 for index in range(len(xtest)):
     x_coordinates = xtest[index]
     y_prediction = predict[index]
 
     if y_prediction == 0:
-        y_prediction = "Bought"
+        y_prediction = "Not Bought"
     else:
-        y_prediction = "Not bought"
+        y_prediction = "Bought"
 
     actual_value = ytest[index]
 
     if actual_value == 0:
-        actual_value = "Bought"
+        actual_value = "Not Bought"
     else:
-        actual_value = "Not bought"
+        actual_value = "Bought"
 
-    print(f"Predicted Decision: {y_prediction}, Actual Decision: {actual_value}")
+    print(f"Predicted Decision: {y_prediction}, Actual Decision: {actual_value}, Mistake: {y_prediction != actual_value}")
