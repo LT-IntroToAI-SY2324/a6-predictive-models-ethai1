@@ -27,9 +27,13 @@ xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0.2)
 model = linear_model.LogisticRegression().fit(xtrain, ytrain)
 
 # Step 7: Print the score to see the accuracy of the model
+
 print(f"Accuracy: ", + model.score(xtest, ytest))
 
-test = model.predict([[1, 34, 56000]])
+prediction = [[1, 34, 56000]]
+test = scale.transform(prediction)
+test = model.predict(test)
+
 if test == 0:
     test = "not buy"
 else:
